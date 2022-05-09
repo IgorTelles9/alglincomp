@@ -1,4 +1,7 @@
 def back(upper, vector, size):
+    ''' 
+        Aplica o algoritmo de substituição para trás em uma matriz. 
+    '''
     x = size*[0.0]
     for i in range(size-1, -1, -1):
         for j in range(size-1, i-1, -1):
@@ -9,7 +12,16 @@ def back(upper, vector, size):
     return x
 
 
-def foward(lower, vector, size):
+def foward(lower, vector, size, trueLower = False):
+    '''' 
+        Aplica o algoritmo de substituição para frente em uma matriz.
+        
+        Se o @param lower for de fato uma matriz inferior, @param trueLower deve 
+        ser passado como True.
+        Mas se o @param lower for uma matriz L e U combinadas, vinda de uma
+        decomposição LU, @param trueLower deve ser mantido False. 
+    
+    '''
     x = size*[0.0]
     for i in range(size):
         x[i] = round((vector[i]), 2)
@@ -17,4 +29,7 @@ def foward(lower, vector, size):
             if (i != j):
                 x[i] -= round((x[j]*lower[i][j]), 2)
                 x[i] = round((x[i]), 2)
+            elif trueLower:
+                x[i] = round( (x[i]/i),2)
+                
     return x
