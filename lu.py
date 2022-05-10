@@ -1,4 +1,4 @@
-def luDecomposition(matrix: list, size: int) -> list:
+def decomposition(matrix: list, size: int) -> list:
     for k in range(size-1):
       # k é a coluna do pivô
         for i in range(k+1, size, 1):

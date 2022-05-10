@@ -1,44 +1,78 @@
-def displayMetodos():
-    print('Decomposicao LU (ICOD=1)')
-    print('Decomposicao de Cholesky (ICOD=2)')
-    print('Procedimento Iterativo Jacobi (ICOD=3')
-    print('Procedimento Iterativo Gauss-Seidel (ICOD=4')
+from turtle import onkeypress
+import substitution
+import lu
+import utils 
+import determinant
+import jacobi
 
-def displayDeterminante():
-    print('Nao calcular determinante (IDET = 0)')
-    print('Calcular determinante (IDET > 0)')
-    
-
-
-def configura():
-    ordem = int(input('Ordem do sistema de equacoes:'))
-    icod = int(input('ICOD relativo ao metodo de analise (para exibir novamente a lista de metodos, digite 0):'))
-    if icod == 0:
-      displayMetodos()
-      icod = int(input('ICOD relativo ao metodo de analise:'))
-    
-    idet = 0
-    if icod == 1 or icod == 2:
-      displayDeterminante()
-      idet = int(input('IDET relativo ao determinante: '))
-    else:
-      print('o metodo escolhido nao calcula determinante')
-    
-    arquivo_a = input('Nome do arquivo que contem a matriz A:')
-    arquivo_b = input('Nome do arquivo que contem o vetor B:')
-    
-    tolm = 0
-    if icod == 3 or icod == 4:
-      tolm = int(input('Tolerancia maxima para solucao iterativa (1 = 10^-1; 2 = 10^-2, etc):'))
-    
-    return ordem,icod,idet, arquivo_a, arquivo_b, tolm 
-
+loop = True 
 
 print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
 print('CALCULADORA DE SISTEMAS LINEARES')
 print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
-print('Este programa resolve sistemas lineares utilizando os seguintes métodos:')
-displayMetodos()
-(ordem, icod, idet, arquivo_a, arquivo_b, tolm) = configura()
+print()
 
-print('end')
+print()
+print('Este programa resolve sistemas lineares utilizando os seguintes métodos:')
+print()
+
+utils.displayMetodos()
+
+while loop:
+  (ordem, icod, idet, arquivo_a, arquivo_b, tolm) = utils.configura()
+
+  matriz = utils.getMatrix(arquivo_a)
+  vetor = utils.getMatrix(arquivo_b)
+  x = []
+  det = 0
+  itCounter = 0
+  error = []
+
+  # ############### resolucao do sistema ####################
+  # ############ decomposicao LU ###############
+  if icod == 1:
+    matriz_lu = lu.decomposition(matriz, ordem)
+    y = substitution.foward(matriz_lu , vetor, ordem)
+    x = substitution.back(matriz_lu , y, ordem)
+    
+    # ########### calculo do determinante ###############
+    if idet > 0:
+      det = determinant.getTriangular(matriz_lu,ordem)
+    # ########### fim calculo do determinante ###############
+    
+  # ############ fim decomposicao LU ###############
+  
+  # ############ metodo de jacobi ############### 
+  if icod == 3: 
+    if not jacobi.converge(matriz, ordem):
+      print()
+      print('ATENCAO:')
+      print('A matriz NAO e diagonal dominante.')
+      print('Portanto NAO ha garantia de CONVERGENCIA para o metodo de Jacobi.')
+      
+    x, itCounter, error = jacobi.method(matriz, vetor, ordem, tolm)
+  # ############ fim metodo de jacobi ############### 
+  
+  # ############### fim resolucao do sistema ####################
+  
+
+  # ############## resultados ##################
+  print('Vetor X:')
+  utils.printVector(x)
+  if idet > 0:
+    print('Determinante:')
+    print(det)
+    print()
+  if icod == 3 or icod == 4:
+    print('Numero de iteracoes: %s'  % (itCounter))
+    print()
+    print('Historico da variacao do erro: ')
+    print(error)
+    print()
+  # ############## fim resultados ##################
+  
+  again = input('Gostaria de resolver outro sistema? (s para sim) ')
+  if again != 's':
+    loop = False 
+    
+print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
