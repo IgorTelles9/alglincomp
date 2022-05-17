@@ -4,6 +4,7 @@ import lu
 import utils 
 import determinant
 import jacobi
+from chule import cholesky
 
 loop = True 
 
@@ -42,6 +43,18 @@ while loop:
     
   # ############ fim decomposicao LU ###############
   
+
+  # ############ metodo de cholesky ############### 
+
+  if icod == 2:
+    matriz_cholesky, det = cholesky(matriz, ordem, idet)
+    # Ainda tem que fazer o chulé devolver a transposta
+    # Ele tem que identificar quando a matriz é não simetrica positiva definida?
+    
+
+  # ############ fim do metodo de cholesky ############### 
+
+
   # ############ metodo de jacobi ############### 
   if icod == 3: 
     if not jacobi.converge(matriz, ordem):
@@ -63,6 +76,13 @@ while loop:
     print('Determinante:')
     print(det)
     print()
+
+  if icod == 2:
+    print('Matriz da decomposição de Cholesky:')
+    print(matriz_cholesky)
+    print('Determinante:')
+    print(det)
+
   if icod == 3 or icod == 4:
     print('Numero de iteracoes: %s'  % (itCounter))
     print()
