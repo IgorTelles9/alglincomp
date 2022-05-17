@@ -34,15 +34,15 @@ def method(matrix, vector, ordem,tolm):
       w[i] = vector[i]
       for j in range(ordem):
         if (i != j):
-          w[i] -= round ( (matrix[i][j]*y[j]), tolm)
-      w[i] = round((w[i]/matrix[i][i]),tolm)
+          w[i] -= (matrix[i][j]*y[j])
+      w[i] = (w[i]/matrix[i][i])
     
     # calculo do residuo
     diff = [0]*ordem
     for i in range(ordem):
-      diff[i] = round( (w[i]-y[i]), tolm)
+      diff[i] = (w[i]-y[i])
     try:
-     r = round ( (norm.euclidian(diff,tolm)/norm.euclidian(w, tolm)), tolm) 
+     r = (norm.euclidian(diff,tolm)/norm.euclidian(w, tolm))
      error.append(r)
     except OverflowError:
       halt = True
@@ -53,7 +53,12 @@ def method(matrix, vector, ordem,tolm):
     else:
       y = w[:]
     
-      
+  for i in range(ordem):
+    w[i] = round(w[i], tolm)
+  
+  for i in range(len(error)):
+    error[i] = round(error[i], tolm)
+  
   return w,counter,error
 
 def converge(matrix: list, ordem: int):

@@ -3,8 +3,7 @@ def decomposition(matrix: list, size: int) -> list:
       # k é a coluna do pivô
         for i in range(k+1, size, 1):
           # i assume o valor de cada linha abaixo do pivô
-            matrix[i][k] = round((matrix[i][k] / 
-                                  matrix[k][k]), 2)
+            matrix[i][k] = matrix[i][k] / matrix[k][k]
           # para economizar memória, coloca-se o item da matriz L
           # correspondente a posição que seria zerada na matriz principal
 
@@ -12,6 +11,5 @@ def decomposition(matrix: list, size: int) -> list:
         for j in range(k + 1, size, 1):
             for i in range(k + 1, size, 1):
               # the operations are done in the column and line after the where the pivot is located
-                matrix[i][j] = round((matrix[i][j] -
-                                      (matrix[i][k] * matrix[k][j])), 2)
+                matrix[i][j] = matrix[i][j] - (matrix[i][k] * matrix[k][j])
     return matrix

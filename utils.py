@@ -1,80 +1,32 @@
-def printMatrix(matrix):
-  m = ''
-  for line in matrix: 
-    m += str(line) + '\n'
-  print(m)
-
-def printVector(vector):
-  v = ''
-  for number in vector:
-    v += '[%s]\n' %(number)
-  print(v)
-  
-def displayMetodos():
-    print('Decomposicao LU (ICOD=1)')
-    print('Decomposicao de Cholesky (ICOD=2)')
-    print('Procedimento Iterativo Jacobi (ICOD=3)')
-    print('Procedimento Iterativo Gauss-Seidel (ICOD=4)')
-    print()
-
-def displayDeterminante():
-    print('Nao calcular determinante (IDET = 0)')
-    print('Calcular determinante (IDET > 0)')
-    print()
-    
-
-
-def configura():
-    ordem = int(input('Ordem do sistema de equacoes: '))
-    print()
-    icod = int(input('ICOD relativo ao metodo de analise (para exibir novamente a lista de metodos, digite 0): '))
-    print()
-    if icod == 0:
-      displayMetodos()
-      icod = int(input('ICOD relativo ao metodo de analise: '))
-    
-    idet = 0
-    if icod == 1 or icod == 2:
-      displayDeterminante()
-      idet = int(input('IDET relativo ao determinante: '))
-      print()
-    else:
-      print('o metodo escolhido nao calcula determinante')
-      print()
-    
-    arquivo_a = input('Nome do arquivo que contem a matriz A: ')
-    print()
-    arquivo_b = input('Nome do arquivo que contem o vetor B: ')
-    print()
-    
-    tolm = 0
-    if icod == 3 or icod == 4:
-      tolm = int(input('Tolerancia maxima para solucao iterativa (1 = 10^-1; 2 = 10^-2, etc): '))
-      print()
-    
-    return ordem,icod,idet, arquivo_a, arquivo_b, tolm 
-
-def getMatrix(file, vector=False):
+def getIdentity(order):
   '''
-    Converte um arquivo de texto que contém uma matriz em uma lista python.
-    
-    Formato esperado para o arquivo: 
-      cada linha da matriz ocupando uma linha no arquivo,
-      separação entre números utilizando um espaço ' '. 
+  Return the identity matrix of the given order
   '''
-  with open(file) as reader:
-    line = reader.readline()
-    matrix = []
-    while line != '':
-      if (line.find('\n') != -1):
-        line = line.replace('\n', '')
-      line = line.split(' ')
-      float_line = []
-      for item in line:
-        float_line.append(float(item))
-      matrix.append(float_line)
-      line = reader.readline()
-  if len(matrix) == 1:
-    return matrix[0]
-  return matrix
+  m = [[0.0 for j in range(order)] for i in range(order)]
+  for i in range(order):
+    for j in range(order):
+      if (i == j):
+        m[i][i] = 1.0
+  return m 
 
+def multiplySquareMatrix(m1, m2, tolm, m1_t=False, m2_t=False):
+  '''
+  Return the result matrix of a square matrices multipication
+  @param m1, m2 are the matrices
+  @param m1_t, m2_t defines if that matrix should be transposed
+  '''
+  order = len(m1)
+  m = [[0.0 for j in range(order)] for i in range(order)]
+  for i in range(order):
+      for j in range(order):
+        for k in range(order):
+          if (m1_t and m2_t):
+            m[i][j] +=(m1[k][i] * m2[j][k])
+          elif(m1_t):
+            m[i][j] += (m1[k][i] * m2[k][j])
+          elif(m2_t):
+            m[i][j] += (m1[i][k] * m2[j][k])
+          else:
+            m[i][j] += (m1[i][k] * m2[k][j])
+          #m[i][j] = m[i][j]
+  return m

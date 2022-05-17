@@ -1,10 +1,9 @@
-from turtle import onkeypress
 import substitution
 import lu
-import utils 
 import determinant
 import jacobi
 from chule import cholesky
+import wr_utils
 
 loop = True 
 
@@ -17,13 +16,13 @@ print()
 print('Este programa resolve sistemas lineares utilizando os seguintes métodos:')
 print()
 
-utils.displayMetodos()
+wr_utils.displayMethodOptions(1)
 
 while loop:
-  (ordem, icod, idet, arquivo_a, arquivo_b, tolm) = utils.configura()
+  (ordem, icod, idet, arquivo_a, arquivo_b, tolm) = wr_utils.config(1)
 
-  matriz = utils.getMatrix(arquivo_a)
-  vetor = utils.getMatrix(arquivo_b)
+  matriz = wr_utils.getMatrix(arquivo_a)
+  vetor = wr_utils.getMatrix(arquivo_b)
   x = []
   det = 0
   itCounter = 0
@@ -62,6 +61,7 @@ while loop:
       print('ATENCAO:')
       print('A matriz NAO e diagonal dominante.')
       print('Portanto NAO ha garantia de CONVERGENCIA para o metodo de Jacobi.')
+      print()
       
     x, itCounter, error = jacobi.method(matriz, vetor, ordem, tolm)
   # ############ fim metodo de jacobi ############### 
@@ -71,10 +71,10 @@ while loop:
 
   # ############## resultados ##################
   print('Vetor X:')
-  utils.printVector(x)
+  wr_utils.printVector(x)
   if idet > 0:
     print('Determinante:')
-    print(det)
+    print(round(det,tolm))
     print()
 
   if icod == 2:
