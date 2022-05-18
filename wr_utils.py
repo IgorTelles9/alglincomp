@@ -13,6 +13,9 @@ def displayMethodOptions(task):
   elif (task == 2):
     print('Método da Potencia (ICOD=1)')
     print('Método de Jacobi (ICOD=2)')
+  elif (task == 3):
+    print('Interpolação por Lagrange (ICOD=1)')
+    print('Regressão Multilinear (ICOD=2)')
 
 def displayDeterminantOptions(task):
   '''
@@ -27,8 +30,7 @@ def config(task):
   '''
     Set the values that will be needed for the operations.
   '''
-  ordem = int(input('Ordem do sistema de equacoes: '))
-  print()
+  
   icod = int(input('ICOD relativo ao metodo (para exibir novamente a lista de metodos, digite 0): '))
   print()
   
@@ -39,6 +41,8 @@ def config(task):
   idet = 0
   
   if task == 1:
+    ordem = int(input('Ordem do sistema de equacoes: '))
+    print()
     if icod == 1 or icod == 2:
       displayDeterminantOptions(task)
       idet = int(input('IDET relativo ao determinante: '))
@@ -60,6 +64,8 @@ def config(task):
     return ordem,icod,idet, arquivo_a, arquivo_b, tolm 
   
   elif task == 2:
+    ordem = int(input('Ordem do sistema de equacoes: '))
+    print()
     if icod == 2:
       displayDeterminantOptions(task)
       idet = int(input('IDET relativo ao determinante: '))
@@ -74,6 +80,13 @@ def config(task):
     tolm = int(input('Tolerancia maxima para solucao iterativa (1 = 10^-1; 2 = 10^-2, etc): '))
     print()
     return ordem,icod,idet, arquivo_a, tolm 
+  
+  elif task == 3:
+    npares = int(input('Número de pares de pontos xi, yi (N): '))
+    print()
+    xcoord = tuple(input('Coordenada do ponto que se deseja calcular o valor de y (x)'))
+    print()
+
 
 def getMatrix(file, vector=False):
   '''
