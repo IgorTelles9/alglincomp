@@ -4,6 +4,6 @@ import eigen
 matrix = [[5, -4, 1, 0], [-4, 6, -4, 1], [1, -4, 6, -4], [0, 1, -4, 5]]
 order = 4
 
-values, vectors, counter = eigen.jacobi(matrix, order,2)
+values, vectors, counter = eigen.jacobi(matrix, order, 2)
 print(values)
 print(vectors)

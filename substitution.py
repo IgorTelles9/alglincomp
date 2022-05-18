@@ -12,15 +12,15 @@ def back(upper, vector, size):
     return x
 
 
-def foward(lower, vector, size, trueLower = False):
+def foward(lower, vector, size, trueLower=False):
     '''' 
         Aplica o algoritmo de substituição para frente em uma matriz.
-        
+
         Se o @param lower for de fato uma matriz inferior, @param trueLower deve 
         ser passado como True.
         Mas se o @param lower for uma matriz L e U combinadas, vinda de uma
         decomposição LU, @param trueLower deve ser mantido False. 
-    
+
     '''
     x = size*[0.0]
     for i in range(size):
@@ -30,5 +30,5 @@ def foward(lower, vector, size, trueLower = False):
                 x[i] -= x[j]*lower[i][j]
             elif trueLower:
                 x[i] = x[i]/lower[i][j]
-                
+
     return x

@@ -33,7 +33,6 @@ def jacobi(matrix, order, tolm):
         theta = pi/4
     else:
         theta = (1/2) * atan((2*matrix[max_i][max_j]) / (m_ii - m_jj))
-    #theta = round(theta, tolm)
     
     # setting p matrix
     p = getIdentity(order)

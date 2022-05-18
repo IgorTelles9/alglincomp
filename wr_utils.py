@@ -18,13 +18,14 @@ def displayMethodOptions(task):
     print('Regressão Multilinear (ICOD=2)')
 
 def displayDeterminantOptions(task):
-  '''
-   Print the options for determinant calculation, given the choosen @param task.
-  '''
-  if(task == 1 or task == 2):
-    print('Nao calcular determinante (IDET = 0)')
-    print('Calcular determinante (IDET > 0)')
-    print()
+    '''
+     Print the options for determinant calculation, given the choosen @param task.
+    '''
+    if(task == 1 or task == 2):
+        print('Nao calcular determinante (IDET = 0)')
+        print('Calcular determinante (IDET > 0)')
+        print()
+
 
 def config(task):
   '''
@@ -53,7 +54,8 @@ def config(task):
     
     arquivo_a = input('Nome do arquivo que contem a matriz A: ')
     print()
-    arquivo_b = input('Nome do arquivo que contem o vetor B: ')
+    icod = int(input(
+        'ICOD relativo ao metodo (para exibir novamente a lista de metodos, digite 0): '))
     print()
     
     tolm = 0
@@ -89,37 +91,39 @@ def config(task):
 
 
 def getMatrix(file, vector=False):
-  '''
-    Converte um arquivo de texto que contém uma matriz em uma lista python.
-    
-    Formato esperado para o arquivo: 
-      cada linha da matriz ocupando uma linha no arquivo,
-      separação entre números utilizando um espaço ' '. 
-  '''
-  with open(file) as reader:
-    line = reader.readline()
-    matrix = []
-    while line != '':
-      if (line.find('\n') != -1):
-        line = line.replace('\n', '')
-      line = line.split(' ')
-      float_line = []
-      for item in line:
-        float_line.append(float(item))
-      matrix.append(float_line)
-      line = reader.readline()
-  if len(matrix) == 1:
-    return matrix[0]
-  return matrix
+    '''
+      Converte um arquivo de texto que contém uma matriz em uma lista python.
+
+      Formato esperado para o arquivo: 
+        cada linha da matriz ocupando uma linha no arquivo,
+        separação entre números utilizando um espaço ' '. 
+    '''
+    with open(file) as reader:
+        line = reader.readline()
+        matrix = []
+        while line != '':
+            if (line.find('\n') != -1):
+                line = line.replace('\n', '')
+            line = line.split(' ')
+            float_line = []
+            for item in line:
+                float_line.append(float(item))
+            matrix.append(float_line)
+            line = reader.readline()
+    if len(matrix) == 1:
+        return matrix[0]
+    return matrix
+
 
 def printMatrix(matrix):
-  m = ''
-  for line in matrix: 
-    m += str(line) + '\n'
-  print(m)
+    m = ''
+    for line in matrix:
+        m += str(line) + '\n'
+    print(m)
+
 
 def printVector(vector):
-  v = ''
-  for number in vector:
-    v += '[%s]\n' %(number)
-  print(v)
+    v = ''
+    for number in vector:
+        v += '[%s]\n' % (number)
+    print(v)
