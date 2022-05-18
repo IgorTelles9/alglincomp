@@ -4,6 +4,7 @@ import lu
 import utils 
 import determinant
 import jacobi
+import gausseidel
 from chule import cholesky
 
 loop = True 
@@ -66,6 +67,19 @@ while loop:
     x, itCounter, error = jacobi.method(matriz, vetor, ordem, tolm)
   # ############ fim metodo de jacobi ############### 
   
+  # ############ metodo de gauss-seidel ############### 
+
+  if icod == 4: 
+    if not jacobi.converge(matriz, ordem):
+      print()
+      print('ATENCAO:')
+      print('A matriz NAO e diagonal dominante.')
+      print('Portanto NAO ha garantia de CONVERGENCIA para o metodo de Jacobi.')
+      
+    x, itCounter, error = gausseidel.seidel(matriz, vetor, ordem, tolm)
+
+  # ############ fim do metodo de gauss-seidel ############### 
+
   # ############### fim resolucao do sistema ####################
   
 
