@@ -12,7 +12,7 @@ def getIdentity(order):
 
 def multiplySquareMatrix(m1, m2, tolm, m1_t=False, m2_t=False):
     '''
-    Return the result matrix of a square matrices multipication
+    Return the resultant matrix of a square matrices multipication
     @param m1, m2 are the matrices
     @param m1_t, m2_t defines if that matrix should be transposed
     '''
@@ -33,6 +33,13 @@ def multiplySquareMatrix(m1, m2, tolm, m1_t=False, m2_t=False):
 
 
 def multiplyMatrixVector(m, v):
+    '''
+    Returns the resultant vector of a matrix-vector multiplication.
+    @param m,v 
+    @returns x the resultant vector
+    '''
     x = [0.0 for i in range(len(v))]
     for i in range(len(m)):
         for j in range(len(m)):
+            x[i] += m[i][j]*v[j]
+    return x

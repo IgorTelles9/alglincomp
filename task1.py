@@ -102,6 +102,7 @@ while loop:
     # ############## fim resultados ##################
 
     again = input('Gostaria de resolver outro sistema? (s para sim) ')
+    print()
     if again != 's':
         loop = False
 

@@ -24,7 +24,9 @@ while loop:
 
     # ############### calculo de autovetores e autovalores ####################
     if icod == 1:
-        pass
+        # ############ power method ###############
+        autovalor, autovetor, itCounter = eigen.power_method(matriz,ordem, tolm)
+        # ############ fim power method ###############
 
     if icod == 2:
         # ############ metodo de jacobi ###############
@@ -42,11 +44,11 @@ while loop:
     # ############## resultados ##################
     if icod == 1:
         print('Maior autovalor: ')
-        print()
+        print(autovalor)
         print()
 
         print('Autovetor associado: ')
-        wr_utils.printVector()
+        wr_utils.printVector(autovetor)
         print()
 
     if icod == 2:
@@ -68,7 +70,8 @@ while loop:
 
     # ############## fim resultados ##################
 
-    again = input('Gostaria de resolver outro sistema? (s para sim) ')
+    again = input('Gostaria de realizar outros calculos? (s para sim) ')
+    print()
     if again != 's':
         loop = False
 
