@@ -1,6 +1,7 @@
 import determinant
 import wr_utils
 import eigen
+import utils
 
 loop = True
 
@@ -21,6 +22,17 @@ while loop:
     matriz = wr_utils.getMatrix(arquivo_a)
     det = 0
     itCounter = 0
+    
+    while( icod == 2 and not utils.isSymmetric(matriz,ordem)):
+        print('ATENCAO!')
+        print('O metodo escolhido so funciona para matrizes simetricas.')
+        print('A matriz inserida NAO e simetrica.')
+        print('Por favor, entre novamente com as informacoes.')
+        print()
+        (ordem, icod, idet, arquivo_a, tolm) = wr_utils.config(2)
+        matriz = wr_utils.getMatrix(arquivo_a)
+        
+
 
     # ############### calculo de autovetores e autovalores ####################
     if icod == 1:

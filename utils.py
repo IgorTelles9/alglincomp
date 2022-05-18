@@ -1,3 +1,6 @@
+from wr_utils import printMatrix
+
+
 def getIdentity(order):
     '''
     Return the identity matrix of the given order
@@ -43,3 +46,17 @@ def multiplyMatrixVector(m, v):
         for j in range(len(m)):
             x[i] += m[i][j]*v[j]
     return x
+
+def isSymmetric(m, order):
+    '''
+    @returns true if the matrix is symmetric
+    '''
+    control = [[False for j in range(order)] for i in range(order)]
+    for i in range(order):
+        for j in range(order):
+            if i!=j and not control[i][j]:
+                if m[i][j] != m[j][i]:
+                    return False 
+                else:
+                    control[i][j] = control[j][i] = True
+    return True 
