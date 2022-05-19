@@ -22,8 +22,8 @@ while loop:
     matriz = wr_utils.getMatrix(arquivo_a)
     det = 0
     itCounter = 0
-    
-    while( icod == 2 and not utils.isSymmetric(matriz,ordem)):
+
+    while(icod == 2 and not utils.isSymmetric(matriz, ordem)):
         print('ATENCAO!')
         print('O metodo escolhido so funciona para matrizes simetricas.')
         print('A matriz inserida NAO e simetrica.')
@@ -31,13 +31,12 @@ while loop:
         print()
         (ordem, icod, idet, arquivo_a, tolm) = wr_utils.config(2)
         matriz = wr_utils.getMatrix(arquivo_a)
-        
-
 
     # ############### calculo de autovetores e autovalores ####################
     if icod == 1:
         # ############ power method ###############
-        autovalor, autovetor, itCounter = eigen.power_method(matriz,ordem, tolm)
+        autovalor, autovetor, itCounter = eigen.power_method(
+            matriz, ordem, tolm)
         # ############ fim power method ###############
 
     if icod == 2:
@@ -60,16 +59,16 @@ while loop:
         print()
 
         print('Autovetor associado: ')
-        wr_utils.printVector(autovetor)
+        print(wr_utils.printVector(autovetor))
         print()
 
     if icod == 2:
         print('Autovalores: ')
-        wr_utils.printVector(autovalores_list)
+        print(wr_utils.printVector(autovalores_list))
         print()
 
         print('Matriz de Autovetores: ')
-        wr_utils.printMatrix(autovetores)
+        print(wr_utils.printMatrix(autovetores))
         print()
 
         if idet > 0:
@@ -79,6 +78,33 @@ while loop:
 
     print('Numero de iteracoes: %s' % (itCounter))
     print()
+
+    with open('task2-saida.txt', 'w') as writer:
+        if icod == 1:
+            writer.write('Maior autovalor:\n ')
+            writer.write(str(autovalor))
+            writer.write('\n')
+
+            writer.write('Autovetor associado:\n ')
+            writer.write(wr_utils.printVector(autovetor))
+            writer.write('\n')
+
+        if icod == 2:
+            writer.write('Autovalores:\n ')
+            writer.write(wr_utils.printVector(autovalores_list))
+            writer.write('\n')
+
+            writer.write('Matriz de Autovetores: \n')
+            writer.write(wr_utils.printMatrix(autovetores))
+            writer.write('\n')
+
+            if idet > 0:
+                writer.write('Determinante:\n')
+                writer.write(str(det) + '\n')
+                writer.write('\n')
+
+        writer.write('Numero de iteracoes: %s' % (itCounter))
+        writer.write('\n')
 
     # ############## fim resultados ##################
 

@@ -81,7 +81,7 @@ while loop:
 
     # ############## resultados ##################
     print('Vetor X:')
-    wr_utils.printVector(x)
+    print(wr_utils.printVector(x))
     if idet > 0:
         print('Determinante:')
         print(round(det, tolm))
@@ -89,7 +89,7 @@ while loop:
 
     if icod == 2:
         print('Matriz da decomposição de Cholesky:')
-        print(matriz_cholesky)
+        print(matriz_cholesky)                                       
         print('Determinante:')
         print(det)
 
@@ -99,6 +99,18 @@ while loop:
         print('Historico da variacao do erro: ')
         print(error)
         print()
+        
+    with open('task1-saida.txt', 'w') as writer:
+        writer.write('Vetor X: \n')
+        writer.write(wr_utils.printVector(x) + '\n')
+        if idet > 0:
+            writer.write('Determinante:\n')
+            writer.write(str(round(det, tolm)) + '\n')
+        if icod == 3 or icod == 4:
+            writer.write('Numero de iteracoes: %s' % (itCounter))
+            writer.write('\n')
+            writer.write('Historico da variacao do erro:\n ')
+            writer.write(str(error))
     # ############## fim resultados ##################
 
     again = input('Gostaria de resolver outro sistema? (s para sim) ')
