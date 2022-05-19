@@ -46,9 +46,9 @@ while loop:
     # ############ metodo de cholesky ###############
 
     if icod == 2:
-        matriz_cholesky, det = cholesky(matriz, ordem, idet)
-        # Ainda tem que fazer o chulé devolver a transposta
-        # Ele tem que identificar quando a matriz é não simetrica positiva definida?
+        matriz_cholesky, transposta_cholesky, det = cholesky(matriz, ordem, idet)
+        y = substitution.foward(transposta_cholesky, vetor, ordem)
+        x = substitution.back(transposta_cholesky, y, ordem)
 
     # ############ fim do metodo de cholesky ###############
 
