@@ -60,3 +60,42 @@ def isSymmetric(m, order):
                 else:
                     control[i][j] = control[j][i] = True
     return True 
+def getTranspose(matrix):
+  trans = [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
+  return trans
+
+def multiplyMatrices(m1,m2):
+
+  nlinhas = len(m1)
+  ncolunas = len(m2[0])
+  result = []
+
+  # Criacao da matriz resultado cheia de 0s
+  for linhas in range(nlinhas):
+    result.append([])
+    for colunas in range(ncolunas):
+      result[linhas].append(0)
+
+  for i in range(nlinhas):
+   
+    for j in range(ncolunas):
+       
+      for k in range(len(m2)):
+        result[i][j] += m1[i][k] * m2[k][j]
+
+  return result
+
+def matrixToVec(matrix):
+  vec = []
+  for i in range(len(matrix)):
+    vec.append(matrix[i][0])
+
+  return vec
+
+def vecToMatrix(vec):
+  matrix = []
+  for i in range(len(vec)):
+    matrix.append([])
+    matrix[i].append(vec[i])
+  
+  return matrix
