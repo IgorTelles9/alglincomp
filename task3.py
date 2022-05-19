@@ -1,6 +1,8 @@
 import determinant
 import wr_utils
 import eigen 
+from interpolacao import interpola
+from regressao import regressao
 
 loop = True 
 
@@ -13,19 +15,27 @@ print()
 print('Este programa calcula o valor aproximado de uma função utilizando os seguintes métodos:')
 print()
 
-wr_utils.displayMethodOptions(2)
+wr_utils.displayMethodOptions(3)
 
 while loop:
-  (ordem, icod, idet, arquivo_a, tolm) = wr_utils.config(3)
+  (icod, npares, xcoord, ycoord, xpred, func) = wr_utils.config(3)
 
-  matriz = wr_utils.getMatrix(arquivo_a)
-  #itCounter = 0
+# INTERPOLACAO  
+  if icod == 1:
+    ypred = interpola(npares, xcoord, ycoord, xpred)
+# ACABOU A INTERPOLACAO
 
- 
-  
+
+# REGRESSAO MULTILINEAR
+
+  if icod == 2:
+    ypred = regressao(npares, xcoord, ycoord, func, xpred)
+
+# ACABOU A REGRESSAO MULTILINEAR
+
 
   # ############## resultados ##################
- 
+  print(f'A funcao avaliada no ponto {xpred} vale: {ypred}')
   
   # ############## fim resultados ##################
   
