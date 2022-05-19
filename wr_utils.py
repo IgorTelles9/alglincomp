@@ -86,10 +86,12 @@ def config(task):
   elif task == 3:
     npares = int(input('Número de pares de pontos xi, yi (N): '))
     print()
-    xcoord = eval(input('Coordenadas dos pontos experimentais de x (Formato: [x1,x2,x3]): '))
-    print()
-    ycoord = eval(input('Coordenadas dos pontos experimentais de y (Formato: [y1,y2,y3]): '))
-    print()
+    points_file = input('Nome do arquivo que contém os pontos experimentais de x e y: ')
+    xcoord, ycoord = getPoints(points_file)
+    # xcoord = eval(input('Coordenadas dos pontos experimentais de x (Formato: [x1,x2,x3]): '))
+    # print()
+    # ycoord = eval(input('Coordenadas dos pontos experimentais de y (Formato: [y1,y2,y3]): '))
+    # print()
     xpred = int(input('Coordenada x do ponto que deseja prever na funcao obtida: '))
     if icod == 2:
       func = input('Função que será usada na regressao multilinear (Formato: função em python separando fatores por "+"): ')
@@ -122,6 +124,25 @@ def getMatrix(file, vector=False):
     if len(matrix) == 1:
         return matrix[0]
     return matrix
+  
+def getPoints(file):
+  with open(file) as reader:
+    line = reader.readline()
+    x_points = []
+    y_points = []
+    while line != '':
+      if (line.find('\n') != -1):
+          line = line.replace('\n', '')
+      line = line.split(' ')
+      float_line = []
+      for item in line:
+          float_line.append(float(item))
+      print('floatline')
+      print(float_line)
+      x_points.append(float_line[0])
+      y_points.append(float_line[1])
+      line = reader.readline()
+  return x_points, y_points
 
 
 def printMatrix(matrix):
