@@ -86,8 +86,17 @@ def config(task):
   elif task == 3:
     npares = int(input('Número de pares de pontos xi, yi (N): '))
     print()
-    xcoord = tuple(input('Coordenada do ponto que se deseja calcular o valor de y (x)'))
+    xcoord = eval(input('Coordenadas dos pontos experimentais de x (Formato: [x1,x2,x3]): '))
     print()
+    ycoord = eval(input('Coordenadas dos pontos experimentais de y (Formato: [y1,y2,y3]): '))
+    print()
+    xpred = int(input('Coordenada x do ponto que deseja prever na funcao obtida: '))
+    if icod == 2:
+      func = input('Função que será usada na regressao multilinear (Formato: função em python separando fatores por "+"): ')
+      return icod, npares, xcoord, ycoord, xpred, func
+    if icod == 1:
+      return icod, npares, xcoord, ycoord, xpred, '1'
+
 
 
 def getMatrix(file, vector=False):
