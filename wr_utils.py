@@ -84,7 +84,7 @@ def config(task):
   elif task == 3:
     npares = int(input('Número de pares de pontos xi, yi (N): '))
     print()
-    xcoord = tuple(input('Coordenada do ponto que se deseja calcular o valor de y (x)'))
+    xcoord = int(input('Valor de x para qual se deseja calcular o y'))
     print()
 
 

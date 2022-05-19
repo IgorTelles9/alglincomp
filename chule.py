@@ -2,7 +2,7 @@
 from math import prod, sqrt
 from pprint import pprint 
 
-def cholesky(A, ordem, idet):
+def cholesky(A, ordem, idet=False):
     # Quantidade de linhas/colunas da matriz A
     
 
