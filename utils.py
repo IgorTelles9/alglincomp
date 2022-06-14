@@ -1,3 +1,4 @@
+from copy import deepcopy
 from wr_utils import printMatrix
 
 
@@ -34,6 +35,7 @@ def multiplySquareMatrix(m1, m2, tolm, m1_t=False, m2_t=False):
                     m[i][j] += (m1[i][k] * m2[k][j])
     return m
 
+
 def multiplyMatrixVector(m, v):
     '''
     Returns the resultant vector of a matrix-vector multiplication.
@@ -46,6 +48,7 @@ def multiplyMatrixVector(m, v):
             x[i] += m[i][j]*v[j]
     return x
 
+
 def isSymmetric(m, order):
     '''
     @returns true if the matrix is symmetric
@@ -53,51 +56,76 @@ def isSymmetric(m, order):
     control = [[False for j in range(order)] for i in range(order)]
     for i in range(order):
         for j in range(order):
-            if i!=j and not control[i][j]:
+            if i != j and not control[i][j]:
                 if m[i][j] != m[j][i]:
-                    return False 
+                    return False
                 else:
                     control[i][j] = control[j][i] = True
-    return True 
+    return True
+
 
 def getTranspose(matrix):
-  trans = [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
-  return trans
+    trans = [[matrix[j][i]
+              for j in range(len(matrix))] for i in range(len(matrix[0]))]
+    return trans
+
 
 def vecLineToColumn(vec):
-  pass
+    return [[i] for i in vec]
 
-def multiplyMatrices(m1,m2):
 
-  nlinhas = len(m1)
-  ncolunas = len(m2[0])
-  result = []
+def addMatrices(m1, m2):
+    return [[m1[i][j] + m2[i][j] for j in range(len(m1[0]))] for i in range(len(m1))]
 
-  # Criacao da matriz resultado cheia de 0s
-  result = [ [0]*ncolunas for i in range(nlinhas) ]
-  # for linhas in range(nlinhas):
-  #   result.append([])
-  #   for colunas in range(ncolunas):
-  #     result[linhas].append(0)
+def subtractMatrices(m1,m2):
+    return [[m1[i][j] - m2[i][j] for j in range(len(m1[0]))] for i in range(len(m1))]
 
-  for i in range(nlinhas):
-    for j in range(ncolunas):
-      for k in range(len(m2)):
-        result[i][j] += m1[i][k] * m2[k][j]
 
-  return result
+def multiplyByValue(m1, c):
+    return [[m1[i][j] * c for j in range(len(m1))] for i in range(len(m1))]
+
+
+def multiplyMatrices(m1, m2):
+
+    nlinhas = len(m1)
+    ncolunas = len(m2[0])
+
+    # Criacao da matriz resultado cheia de 0s
+    result = [[0]*ncolunas for i in range(nlinhas)]
+
+    for i in range(nlinhas):
+        for j in range(ncolunas):
+            for k in range(len(m2)):
+                result[i][j] += m1[i][k] * m2[k][j]
+    return result
+
+
+def multiplyVectors(v1, v2, columnLine=True):
+    n = len(v1)
+    if columnLine:
+        result = [[0]*n for i in range(n)]
+        for i in range(n):
+            for j in range(n):
+                result[i][j] = v1[i][0]*v2[j]
+        return result 
+    else:
+        result = 0
+        for i in range(n):
+            result += v2[i][0]*v1[i]
+        return result 
 
 def matrixToVec(matrix):
-  vec = []
-  for i in range(len(matrix)):
-    vec.append(matrix[i][0])
+    vec = []    
+    for i in range(len(matrix)):
+        vec.append(matrix[i][0])
 
-  return vec
+    return vec
+
 
 def vecToMatrix(vec):
-  matrix = []
-  for i in range(len(vec)):
-    matrix.append([])
-    matrix[i].append(vec[i])
-  
-  return matrix
+    matrix = []
+    for i in range(len(vec)):
+        matrix.append([])
+        matrix[i].append(vec[i])
+
+    return matrix
