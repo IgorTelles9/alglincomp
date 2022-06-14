@@ -5,7 +5,7 @@ import jacobi
 import gausseidel
 from chule import cholesky
 import wr_utils
-
+import utils 
 loop = True
 
 print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
@@ -24,6 +24,10 @@ while loop:
 
     matriz = wr_utils.getMatrix(arquivo_a)
     vetor = wr_utils.getMatrix(arquivo_b)
+    print(vetor)
+    vetor = utils.matrixToVec(vetor)
+    print(vetor)
+    print()
     x = []
     det = 0
     itCounter = 0
@@ -47,7 +51,7 @@ while loop:
 
     if icod == 2:
         matriz_cholesky, transposta_cholesky, det = cholesky(matriz, ordem, idet)
-        y = substitution.foward(transposta_cholesky, vetor, ordem)
+        y = substitution.foward(matriz_cholesky, vetor, ordem, trueLower=True)
         x = substitution.back(transposta_cholesky, y, ordem)
 
     # ############ fim do metodo de cholesky ###############

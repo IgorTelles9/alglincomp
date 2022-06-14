@@ -54,8 +54,7 @@ def config(task):
     
     arquivo_a = input('Nome do arquivo que contem a matriz A: ')
     print()
-    icod = int(input(
-        'ICOD relativo ao metodo (para exibir novamente a lista de metodos, digite 0): '))
+    arquivo_b = input('Nome do arquivo que contem o vetor B: ')
     print()
     
     tolm = 0
@@ -92,7 +91,7 @@ def config(task):
     # print()
     # ycoord = eval(input('Coordenadas dos pontos experimentais de y (Formato: [y1,y2,y3]): '))
     # print()
-    xpred = int(input('Coordenada x do ponto que deseja prever na funcao obtida: '))
+    xpred = float(input('Coordenada x do ponto que deseja prever na funcao obtida: '))
     if icod == 2:
       func = input('Função que será usada na regressao multilinear (Formato: função em python separando fatores por "+"): ')
       return icod, npares, xcoord, ycoord, xpred, func
@@ -137,8 +136,6 @@ def getPoints(file):
       float_line = []
       for item in line:
           float_line.append(float(item))
-      print('floatline')
-      print(float_line)
       x_points.append(float_line[0])
       y_points.append(float_line[1])
       line = reader.readline()

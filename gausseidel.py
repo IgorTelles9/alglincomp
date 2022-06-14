@@ -14,6 +14,8 @@ def seidel(matrix, vector, ordem, tolm):
 
     # list com historico de erros
     error = []
+    
+    counter = 0
 
     while not halt:
         counter += 1

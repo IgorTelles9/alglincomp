@@ -20,15 +20,18 @@ def cholesky(A, ordem, idet=False):
 
             if (i == k):
                 check = A[i][i] - soma_tmp
-                if check <= 0:
-                    return 'matriz nao ta certa', 'matriz nao ta certa'                                 
+                if check < 0:
+                    print('matriz nao ta certa', 'matriz nao ta certa')   
+                                                 
                 L[i][k] = sqrt(check)     
 
             else:    
                 denominador = L[k][k] * (A[i][k] - soma_tmp) 
+                denominador = L[i][i]
                 if denominador == 0:
-                    return 'matriz nao ta certa', 'matriz nao ta certa'                          
-                L[i][k] = (1.0 /denominador)
+                    print('matriz nao ta certa', 'matriz nao ta certa')  
+                    #return 0,0,0                        
+                L[k][i] = (1.0 /denominador)
     if idet:
         det = (prod(L[j][j] for j in range(ordem)))**2
     else:

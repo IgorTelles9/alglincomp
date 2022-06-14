@@ -34,7 +34,6 @@ def multiplySquareMatrix(m1, m2, tolm, m1_t=False, m2_t=False):
                     m[i][j] += (m1[i][k] * m2[k][j])
     return m
 
-
 def multiplyMatrixVector(m, v):
     '''
     Returns the resultant vector of a matrix-vector multiplication.
@@ -60,9 +59,13 @@ def isSymmetric(m, order):
                 else:
                     control[i][j] = control[j][i] = True
     return True 
+
 def getTranspose(matrix):
   trans = [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
   return trans
+
+def vecLineToColumn(vec):
+  pass
 
 def multiplyMatrices(m1,m2):
 
@@ -71,15 +74,14 @@ def multiplyMatrices(m1,m2):
   result = []
 
   # Criacao da matriz resultado cheia de 0s
-  for linhas in range(nlinhas):
-    result.append([])
-    for colunas in range(ncolunas):
-      result[linhas].append(0)
+  result = [ [0]*ncolunas for i in range(nlinhas) ]
+  # for linhas in range(nlinhas):
+  #   result.append([])
+  #   for colunas in range(ncolunas):
+  #     result[linhas].append(0)
 
   for i in range(nlinhas):
-   
     for j in range(ncolunas):
-       
       for k in range(len(m2)):
         result[i][j] += m1[i][k] * m2[k][j]
 
