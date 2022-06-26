@@ -17,6 +17,7 @@ def newton(s,x,tolm,itmax):
     for _ in range(itmax):
         f = calc_functions(s,x)
         jacobian = derivative.jacobian(s,x,tolm)
+        print(jacobian)
         
         # solving system
         lu_matrix = lu.decomposition(jacobian, order)
