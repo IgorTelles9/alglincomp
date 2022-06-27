@@ -21,7 +21,7 @@ def rkn(h,temp,a1,a2,a3,w1,w2,w3,m,c,k):
         y = y + h*(yl+(1/3)*(k1+k2+k3))
         yl = yl + (1/3)*(k1+2*k2+2*k3+k4)
         t += h
-        t = round(t,1)
+        t = round(t,3)
         
     return y, yl
 
