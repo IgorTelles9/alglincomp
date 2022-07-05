@@ -1,6 +1,8 @@
 import math
 from prettytable import PrettyTable
-
+import pandas as pd 
+import numpy as np
+import matplotlib.pyplot as plt
 
 def func(t,y,yl,params):
 
@@ -15,7 +17,17 @@ def rkn(h,temp,params):
     t=0
     y=0
     yl=0
-    table.add_row([t, y, yl, func(t,y,yl,params)])
+    t_arr = []
+    y_arr = []
+    yl_arr = []
+    func_arr = []
+    t_arr.append(t)
+    y_arr.append(y)
+    yl_arr.append(yl)
+    matrix = []
+    func_arr.append(func(t,y,yl,params))
+    matrix.append([t, y, yl, func(t,y,yl,params)])
+    # table.add_row([t, y, yl, func(t,y,yl,params)])
     #print(f't:{t} | x:{y} | v:{yl} | a: {func(t,y,yl,params)}')
     while t < temp:
         k1 = 0.5*h*func(t,y,yl,params)
@@ -31,11 +43,30 @@ def rkn(h,temp,params):
         t += h
         t = round(t,3)
         table.add_row([t, y, yl, func(t,y,yl,params)])
+        t_arr.append(t)
+        y_arr.append(y)
+        yl_arr.append(yl)
+        func_arr.append(func(t,y,yl,params))
+        matrix.append([t, y, yl, func(t,y,yl,params)])
         #print(f't:{t } | x:{y} | v:{yl} | a: {func(t,y,yl,params)}')
         
 
-    print(table)
+    #print(matrix)
+    # t_arr1 = np.array(t_arr)
+    # y_arr1 = np.array(y_arr)
+    # yl_arr1 = np.array(yl_arr)
+    # func_arr1 = np.array(func_arr)
+
+    # df1 = pd.DataFrame(arr)
+    # df2 = pd.DataFrame(arr)
+    # df3 = pd.DataFrame(arr)
+
+    # x_ticks = np.arange(0,100,0.1)
+    # #x_ticks = range(len(t_arr))
+    # #plt.plot(x_ticks, t_arr)
+    # plt.plot(x_ticks, y_arr)
+    # plt.show()
     return y
 
-print(rkn(0.1, 10, [1,2,1.5,0.05,1,2,1,0.1,2]))
+#print(rkn(0.1, 10, [1,2,1.5,0.05,1,2,1,0.1,2]))
 #print(rkn(0.1,10,1,2,1.5,0.05,1,2,1,0.1,2))

@@ -28,11 +28,12 @@ def newton(s,x,tolm,itmax):
 
         # analizing stop condition
         tolk = norm.euclidian(delta_x) / norm.euclidian(x_new)
-
+        print(x_new)
         if (tolk > tolm):
             x = deepcopy(x_new)
         else:
-            return [round(x,2) for x in x_new ]
+            # return [round(x,2) for x in x_new ]
+            return x_new
     raise ValueError('The iteration max was reached.')
 
 def broyden(s,x,tolm,itmax):
@@ -48,11 +49,13 @@ def broyden(s,x,tolm,itmax):
         lu_matrix = lu.decomposition(deepcopy(jacobian), order)
         y = substitution.foward(lu_matrix,f, order)
         delta_x = substitution.back(lu_matrix, y, order)
-
+        print(delta_x)
         x_new = [x[i] + delta_x[i] for i in range(order)]
-
+        print(x_new)
         f_new = calc_functions(s,x_new)
+        print(f_new)
         y = [f_new[i] - f[i] for i in range(order)]
+        print(y)
 
         tolk = norm.euclidian(delta_x) / norm.euclidian(x_new)
 
@@ -66,10 +69,12 @@ def broyden(s,x,tolm,itmax):
             j4 = utils.multiplyVectors(delta_x, delta_x_column,False)
             j5 = utils.multiplyByValue(j3,1/j4)
             jacobian = utils.subtractMatrices(deepcopy(jacobian), j5)
+            print(jacobian)
 
             x = deepcopy(x_new)
             
         else:
-            return [round(x,2) for x in x_new ]
+            #return [round(x,2) for x in x_new ]
+            return x_new
     raise ValueError('The iteration max was reached.')
 
